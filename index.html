@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Complaint / Grievance Form – Community / Stakeholder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="android-chrome-512x512.png" />
+    <style>
+      :root {
+        --bg: #f3f4f6;
+        --card-bg: #ffffff;
+        --text: #111827;
+        --muted: #6b7280;
+        --primary: #2563eb;
+        --border: #d1d5db;
+      }
+
+      body.dark-mode {
+        --bg: #020617;
+        --card-bg: #0f172a;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --primary: #60a5fa;
+        --border: #1f2937;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        padding: 18px;
+      }
+
+      .logo-container {
+        text-align: center;
+      }
+
+      .logo {
+        max-width: 240px;
+        max-height: 90px;
+        object-fit: contain;
+      }
+
+      .header-divider {
+        width: 100%;
+        height: 3px;
+        background: var(--primary);
+        border-radius: 2px;
+        margin: 12px 0 18px;
+      }
+
+      .app-shell {
+        max-width: 1900px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.14);
+        padding: 22px 24px 30px;
+      }
+
+      .title-main {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+
+      .section-title {
+        font-weight: 700;
+        font-size: 1rem;
+        margin-top: 18px;
+        margin-bottom: 6px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+
+      .section-title span.num {
+        color: var(--primary);
+        font-weight: 800;
+        min-width: 18px;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 10px 16px;
+        margin-bottom: 8px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .field label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      input[type="text"],
+      input[type="date"],
+      textarea {
+        padding: 7px 9px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--card-bg);
+        color: var(--text);
+        font-size: 0.9rem;
+        width: 100%;
+      }
+
+      textarea {
+        min-height: 60px;
+        resize: vertical;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: 2px solid var(--primary);
+        outline-offset: 1px;
+        border-color: transparent;
+      }
+
+      /* Blocks for checkboxes / grouped options */
+      .checkbox-block {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px 12px;
+        background: var(--card-bg);
+        font-size: 0.9rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 4px 14px;
+      }
+
+      .checkbox-block.single-column {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .checkbox-item span {
+        font-size: 0.9rem;
+      }
+
+      .checkbox-item input[type="text"] {
+        max-width: 260px;
+      }
+
+      .radio-line {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.9rem;
+      }
+
+      .radio-options {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .radio-options label {
+        font-size: 0.86rem;
+      }
+
+      .sub-label {
+        font-size: 0.86rem;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+
+      .multi-text {
+        width: 100%;
+        min-height: 90px;
+        font-family: inherit;
+      }
+
+      .inline-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 6px;
+        margin-bottom: 4px;
+      }
+
+      .inline-row-tight {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+        gap: 12px;
+        align-items: end;
+      }
+
+      /* Signature / closure line block */
+      .closure-line {
+        margin-top: 8px;
+      }
+
+      .closure-inline {
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 6px;
+      }
+
+      /* Buttons & footer */
+      .footer-actions {
+        margin-top: 18px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .small-note {
+        font-size: 0.8rem;
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      .btn {
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        padding: 6px 14px;
+        margin: 5px 0;
+        font-size: 0.8rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--bg);
+        color: var(--text);
+        transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: #f9fafb;
+        border-color: transparent;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 14px rgba(15, 23, 42, 0.16);
+      }
+
+      #modeToggle {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+      }
+
+      .signature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .signature-block {
+        border-radius: 10px;
+        border: 1px dashed var(--border);
+        padding: 10px 12px;
+      }
+
+      .signature-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 6px;
+      }
+
+      .signature-preview {
+        border: 1px dashed var(--border);
+        border-radius: 8px;
+        margin-top: 6px;
+        padding: 6px;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        overflow: hidden;
+        font-size: 0.78rem;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .signature-preview img {
+        max-width: 100%;
+        max-height: 100px;
+        display: block;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+        .app-shell {
+          padding: 18px 12px 24px;
+          border-radius: 12px;
+        }
+      }
+
+      @media print {
+        body {
+          background: #ffffff !important;
+          padding: 0;
+        }
+        .app-shell {
+          box-shadow: none;
+          border-radius: 0;
+          border: none;
+        }
+        .no-print {
+          display: none !important;
+        }
+        input::placeholder,
+        textarea::placeholder {
+          color: transparent !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Dark / Light toggle -->
+    <button id="modeToggle" class="btn no-print" type="button">
+      🌓 Dark / Light
+    </button>
+
+    <!-- Logo + divider -->
+    <div class="logo-container">
+      <img src="Prado logo.png" alt="Company Logo" class="logo" />
+    </div>
+    <div class="header-divider"></div>
+
+    <div class="app-shell">
+      <div class="title-main">
+        Complaint / Grievance Form – Community / Stakeholder
+      </div>
+
+      <!-- Section 1 – Basic Information -->
+      <div class="section-title">
+        <span class="num">1.</span><span>Section 1 – Basic Information</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label>Complaint ID:(Community/date)</label>
+          <input type="text" id="cg_complaint_id" />
+        </div>
+        <div class="field">
+          <label>Date Received: </label>
+          <input type="date" id="cg_date_received" />
+        </div>
+        <div class="field">
+          <label>Time Received: </label>
+          <input type="text" id="cg_time_received" />
+        </div>
+        <div class="field">
+          <label>Received By (Name &amp; Role): </label>
+          <input type="text" id="cg_received_by" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label> Mode: </label>
+        <div class="checkbox-block">
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>In person</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Phone</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>WhatsApp</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Written</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Other:</span>
+            <input type="text" id="cg_mode_other" />
+          </label>
+        </div>
+      </div>
+
+      <!-- Section 2 – Complainant Details -->
+      <div class="section-title">
+        <span class="num">2.</span><span>Section 2 – Complainant Details</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label>Name of Complainant / Group: </label>
+          <input type="text" id="cg_complainant_name" />
+        </div>
+        <div class="field">
+          <label>Contact Phone:</label>
+          <input type="text" id="cg_contact_phone" />
+        </div>
+        <div class="field">
+          <label>Community / Location: </label>
+          <input type="text" id="cg_community_location" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Type of Complainant:</label>
+        <div class="checkbox-block">
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Individual household</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Youth group</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Women’s group</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Business / Enterprise</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Institution (school/clinic/etc.)</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Other:</span>
+            <input type="text" id="cg_complainant_other" />
+          </label>
+        </div>
+      </div>
+
+      <!-- Section 3 – Category of Complaint -->
+      <div class="section-title">
+        <span class="num">3.</span
+        ><span>Section 3 – Category of Complaint</span>
+      </div>
+
+      <div class="field">
+        <label>Tick one or more:</label>
+        <div class="checkbox-block">
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span
+              >Technical (outage, low voltage, unsafe installation, equipment
+              issue)</span
+            >
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Billing / Tariff / Payment</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span
+              >Connection / Metering (no meter, delay, disconnection, wiring
+              issues)</span
+            >
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span
+              >Service Quality (frequent trips, poor response, load
+              shedding)</span
+            >
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Employment / Local Labour</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Land / Right of Way / Access</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span
+              >Behaviour / Security (staff conduct, harassment, threats)</span
+            >
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Other: _______________________________________</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Section 4 – Description of Complaint -->
+      <div class="section-title">
+        <span class="num">4.</span
+        ><span>Section 4 – Description of Complaint</span>
+      </div>
+
+      <div class="field">
+        <label>Summary of Complaint (Complainant’s Words):</label>
+        <textarea id="cg_summary" class="multi-text"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Location / Asset Involved (if technical):</label>
+        <textarea id="cg_location_asset" class="multi-text"></textarea>
+      </div>
+
+      <div class="field inline-row-tight">
+        <div>
+          <label>Date Incident Started / Observed: (if known)</label>
+        </div>
+        <div>
+          <input type="date" id="cg_incident_started" style="margin-top: 5px" />
+        </div>
+      </div>
+
+      <!-- Section 5 – Immediate Action Taken -->
+      <div class="section-title">
+        <span class="num">5.</span
+        ><span>Section 5 – Immediate Action Taken</span>
+      </div>
+
+      <div class="field">
+        <label>Was any immediate action taken at time of receipt?</label>
+        <div class="radio-options">
+          <label><input type="radio" name="cg_immediate_action" /> Yes</label>
+          <label><input type="radio" name="cg_immediate_action" /> No</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>If Yes, describe:</label>
+        <textarea id="cg_immediate_desc" class="multi-text"></textarea>
+      </div>
+
+      <div class="field" style="margin-top: 5px">
+        <label>Was the issue temporarily resolved on the spot? </label>
+        <div class="radio-options">
+          <label><input type="radio" name="cg_temp_resolved" /> Yes</label>
+          <label><input type="radio" name="cg_temp_resolved" /> No</label>
+          <label
+            ><input type="radio" name="cg_temp_resolved" /> Partially</label
+          >
+        </div>
+      </div>
+
+      <!-- Section 6 – Escalation & Investigation -->
+      <div class="section-title">
+        <span class="num">6.</span
+        ><span>Section 6 – Escalation &amp; Investigation</span>
+      </div>
+
+      <div class="field">
+        <label>Escalated To:</label>
+        <div class="checkbox-block">
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Project Manager</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>HSE</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Technical / O&amp;M</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Commercial / Customer Service</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Management</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" />
+            <span>Other: __________</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field inline-row-tight">
+        <div>
+          <label>Date Escalated: </label>
+        </div>
+        <div>
+          <input style="margin-top: 5px" type="date" id="cg_date_escalated" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Brief Investigation Summary (after site check / review):</label>
+        <textarea id="cg_investigation" class="multi-text"></textarea>
+      </div>
+
+      <!-- Section 7 – Agreed Resolution / Action Plan -->
+      <div class="section-title">
+        <span class="num">7.</span
+        ><span>Section 7 – Agreed Resolution / Action Plan</span>
+      </div>
+
+      <div class="field">
+        <label>Agreed Resolution / Action:</label>
+        <textarea id="cg_resolution" class="multi-text"></textarea>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label>Responsible Person / Team: </label>
+          <input type="text" id="cg_responsible" />
+        </div>
+        <div class="field">
+          <label>Target Resolution Date:</label>
+          <input type="date" id="cg_target_date" />
+        </div>
+      </div>
+
+      <!-- Section 8 – Closure -->
+      <div class="section-title">
+        <span class="num">8.</span><span>Section 8 – Closure</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label>Actual Date Closed: </label>
+          <input type="date" id="cg_actual_closed" />
+        </div>
+        <div class="field">
+          <label
+            >Outcome: ☐ Fully resolved ☐ Partially resolved ☐ Not
+            resolved</label
+          >
+          <div class="radio-options">
+            <label
+              ><input type="radio" name="cg_outcome" /> Fully resolved</label
+            >
+            <label
+              ><input type="radio" name="cg_outcome" /> Partially
+              resolved</label
+            >
+            <label><input type="radio" name="cg_outcome" /> Not resolved</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Remarks / Lessons Learned:</label>
+        <textarea id="cg_remarks" class="multi-text"></textarea>
+      </div>
+
+      <div class="closure-line">
+        <div class="field">
+          <label>Closed By (Name &amp; Role): </label>
+          <input type="text" id="cg_closed_by" />
+        </div>
+
+        <div class="signature-grid">
+          <div class="signature-block">
+            <div class="field-group">
+              <label for="hseSignature">Signature (Upload Image)</label>
+              <input
+                type="file"
+                id="hseSignature"
+                class="no-print"
+                accept="image/*"
+              />
+              <div class="signature-preview" id="hseSignaturePreview">
+                No signature selected
+              </div>
+              <div class="no-print" style="margin-top: 4px; text-align: right">
+                <button
+                  type="button"
+                  class="btn btn-small btn-danger"
+                  id="hseSignatureClear"
+                >
+                  ✖ Remove Image
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer-actions">
+        <div class="small-note">
+          Complete all sections of this Complaint / Grievance Form and file
+          according to project procedures.
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary no-print"
+          onclick="window.print()"
+        >
+          🖨️ Print / Save as PDF
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Theme toggle
+      document.getElementById("modeToggle").addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+      });
+
+      // Auto-fill key dates with today's date + init signature upload
+      document.addEventListener("DOMContentLoaded", () => {
+        const today = new Date().toISOString().slice(0, 10);
+        const dateIds = [
+          "cg_date_received",
+          "cg_incident_started",
+          "cg_date_escalated",
+          "cg_target_date",
+          "cg_actual_closed",
+          "cg_signature_date", // this one is harmless even if it doesn't exist
+        ];
+        dateIds.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && !el.value) el.value = today;
+        });
+
+        // --- Signature preview logic ---
+        const signatureInput = document.getElementById("hseSignature");
+        const signaturePreview = document.getElementById("hseSignaturePreview");
+        const clearBtn = document.getElementById("hseSignatureClear");
+
+        if (signatureInput && signaturePreview) {
+          const defaultText = "No signature selected";
+
+          signatureInput.addEventListener("change", (e) => {
+            const file = e.target.files && e.target.files[0];
+
+            // reset preview
+            signaturePreview.innerHTML = "";
+
+            if (!file) {
+              signaturePreview.textContent = defaultText;
+              return;
+            }
+
+            if (!file.type.startsWith("image/")) {
+              signaturePreview.innerHTML =
+                "<span style='color:#b91c1c;font-size:0.8rem;'>Please upload an image file.</span>";
+              signatureInput.value = "";
+              return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              const img = document.createElement("img");
+              img.src = ev.target.result;
+              img.alt = "Signature preview";
+              signaturePreview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+          });
+
+          if (clearBtn) {
+            clearBtn.addEventListener("click", () => {
+              signatureInput.value = "";
+              signaturePreview.textContent = defaultText;
+            });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
